@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/NDKivi/bamazon#readme",
   "dependencies": {
+    "inquirer": "^6.0.0",
     "mysql": "^2.15.0"
   }
 }
