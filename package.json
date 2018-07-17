@@ -1,0 +1,22 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Node & MySQL app to buy stuff",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NDKivi/bamazon.git"
+  },
+  "author": "Neal David Kivi",
+  "license": "SEE LICENSE IN LISENSE",
+  "bugs": {
+    "url": "https://github.com/NDKivi/bamazon/issues"
+  },
+  "homepage": "https://github.com/NDKivi/bamazon#readme",
+  "dependencies": {
+    "mysql": "^2.15.0"
+  }
+}
