@@ -34,7 +34,18 @@ let connection = mysql.createConnection({
 connection.connect(function (error) {
     if (error) throw error;
     console.log("connectedb")
-    viewProducts();
+    inquirer.prompt([{
+        name: "viewOrEnter",
+        type: "list",
+        message: "Select:",
+        choices: ["View Product Sales by Department", "Add a New Department"]
+    }]).then(function (results) {
+        if (results.viewOrEnter === "View Product Sales by Department") {
+            viewProducts();
+        } else {
+            addNewDepartment();
+        }
+    });
 });
 
 function viewProducts() {
@@ -63,5 +74,28 @@ function viewProducts() {
         let output = table(tableArray, tableConfig);
         console.log(output);
         connection.end();
+    });
+}
+
+function addNewDepartment() {
+    inquirer.prompt([{
+        name: "department_name",
+        type: "input",
+        message: "Input new depatment name"
+    },
+    {
+        name: "over_head_costs",
+        type: "input",
+        message: "What are the over-head costs?"
+    }]).then(function (results) {
+        let object = {
+            "department_name": results.department_name,
+            "over_head_costs": results.over_head_costs
+        };
+        connection.query("INSERT INTO departments SET ?", object, function(error, queryResults) {
+            if (error) throw error;
+            console.log("successfully added department");
+            connection.end();
+        });
     });
 }

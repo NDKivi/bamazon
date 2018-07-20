@@ -88,6 +88,7 @@ function viewProducts(isLowInventory) {
         }
         let output = table(tableArray, tableConfig);
         console.log(output);
+        connection.end();
     });
 }
 
@@ -134,7 +135,7 @@ function addNewProduct() {
         },
         {
             name: "department",
-            message: "Department of product:",
+            message: "Department ID of product:",
             type: "input"
         },  
         {
@@ -149,9 +150,10 @@ function addNewProduct() {
         }
     ]).then(function (inquirerResults) {
         if (inquirerResults.name && inquirerResults.department && inquirerResults.price && inquirerResults.stock) {
-            connection.query("INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)", [inquirerResults.name, inquirerResults.department, parseFloat(inquirerResults.price).toFixed(2), parseInt(inquirerResults.stock)], function (error, results) {
+            connection.query("INSERT INTO products (product_name, department_id, price, stock_quantity) VALUES (?, ?, ?, ?)", [inquirerResults.name, inquirerResults.department, parseFloat(inquirerResults.price).toFixed(2), parseInt(inquirerResults.stock)], function (error, results) {
                 if (error) throw error;
                 console.log("insert complete");
+                connection.end();
             });
         }
     });
@@ -160,6 +162,7 @@ function addNewProduct() {
 function updateStock(item_id, newQuantity) {
     connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?", [newQuantity, item_id], function (error, queryResults) {
         if (error) throw error;
-        console.log("success");
+        console.log("Stock updated.");
+        connection.end();
     });
 }

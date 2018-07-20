@@ -9,4 +9,15 @@ CREATE TABLE products (
 );
 
 ALTER TABLE products
-ADD COLUMN products_sales DECIMAL(20, 2) DEFAULT 0.00;
+ADD COLUMN product_sales DECIMAL(20, 2) DEFAULT 0.00;
+
+ALTER TABLE products
+ADD department_id BIGINT UNSIGNED;
+ALTER TABLE products
+ADD CONSTRAINT fk_department_id FOREIGN KEY (department_id) REFERENCES departments(department_id);
+
+CREATE TABLE departments (
+	department_id SERIAL,
+    department_name VARCHAR(255),
+	over_head_costs DECIMAL(20, 2)
+);
