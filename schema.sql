@@ -7,3 +7,6 @@ CREATE TABLE products (
     price DECIMAL(20, 2) NOT NULL,
     stock_quantity INTEGER NOT NULL
 );
+
+ALTER TABLE products
+ADD COLUMN products_sales DECIMAL(20, 2) DEFAULT 0.00;

@@ -26,7 +26,8 @@ function showProducts() {
             productHash[results[i].item_id] = {
                 "price": results[i].price,
                 "product_name": results[i].product_name,
-                "stock_quantity": results[i].stock_quantity
+                "stock_quantity": results[i].stock_quantity,
+                "product_sales": results[i].product_sales
             };
         }
         console.log("-------------------------------------");
@@ -58,6 +59,7 @@ function askQuantity(item_id, product) {
                 let totalCost = quantity * product.price;
                 console.log("You purchased " + quantity + " of " + product.product_name + " for a total of $" + totalCost);
                 reduceStock(item_id, product.stock_quantity - quantity);
+                increaseSales(item_id, product.product_sales + totalCost);
             } else {
                 console.log("Insufficient quantity !  Only " + product.stock_quantity + " are in stock.  Sorry!");
                 connection.end();
@@ -73,6 +75,13 @@ function reduceStock(item_id, newQuantity) {
     connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?", [newQuantity, item_id], function(error, results) {
         if (error) throw error;
         console.log("quantity updated!")
+    });
+}
+
+function increaseSales(item_id, product_sales) {
+    connection.query("UPDATE products SET product_sales = ? WHERE item_id = ?", [product_sales, item_id], function(error, results) {
+        if (error) throw error;
+        console.log("product sales updated!")
         connection.end();
     });
 }
