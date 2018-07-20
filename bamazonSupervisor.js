@@ -33,7 +33,6 @@ let connection = mysql.createConnection({
 
 connection.connect(function (error) {
     if (error) throw error;
-    console.log("connectedb")
     inquirer.prompt([{
         name: "viewOrEnter",
         type: "list",

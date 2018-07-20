@@ -12,7 +12,6 @@ let connection = mysql.createConnection({
 
 connection.connect(function (error) {
     if (error) throw error;
-    console.log("connectedb")
     showProducts();
 });
 
@@ -74,14 +73,12 @@ function askQuantity(item_id, product) {
 function reduceStock(item_id, newQuantity) {
     connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?", [newQuantity, item_id], function(error, results) {
         if (error) throw error;
-        console.log("quantity updated!")
     });
 }
 
 function increaseSales(item_id, product_sales) {
     connection.query("UPDATE products SET product_sales = ? WHERE item_id = ?", [product_sales, item_id], function(error, results) {
         if (error) throw error;
-        console.log("product sales updated!")
         connection.end();
     });
 }

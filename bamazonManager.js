@@ -30,7 +30,6 @@ let connection = mysql.createConnection({
 
 connection.connect(function (error) {
     if (error) throw error;
-    console.log("connectedb");
     mainPrompt();
 });
 
@@ -70,7 +69,6 @@ function mainPrompt() {
 }
 
 function viewProducts(isLowInventory) {
-    console.log("in viewProducts()");
     let queryString;
     if (isLowInventory) {
         console.log(chalk.bold("Low Inventory Products"));
@@ -93,7 +91,6 @@ function viewProducts(isLowInventory) {
 }
 
 function addToInventory() {
-    console.log("in addToInventory()");
     connection.query("SELECT * FROM products", function (error, queryResults) {
         let choices;
         choices = queryResults.map(function (currentItem) {
@@ -126,7 +123,6 @@ function addToInventory() {
 }
 
 function addNewProduct() {
-    console.log("in addNewProduct()");
     inquirer.prompt([
         {
             name: "name",
@@ -152,7 +148,7 @@ function addNewProduct() {
         if (inquirerResults.name && inquirerResults.department && inquirerResults.price && inquirerResults.stock) {
             connection.query("INSERT INTO products (product_name, department_id, price, stock_quantity) VALUES (?, ?, ?, ?)", [inquirerResults.name, inquirerResults.department, parseFloat(inquirerResults.price).toFixed(2), parseInt(inquirerResults.stock)], function (error, results) {
                 if (error) throw error;
-                console.log("insert complete");
+                console.log("Product added.");
                 connection.end();
             });
         }
